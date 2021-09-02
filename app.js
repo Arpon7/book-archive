@@ -5,12 +5,18 @@ searchBtn.addEventListener('click', captureInput);
 
 function captureInput() {
   const search = searchInput.value;
-  searchInput.value = "";
-  const url = `http://openlibrary.org/search.json?q=${search}`;
+  if (search === '') {
+    searchInput.value = 'please enter a book name'
+  }
+  else {
+    searchInput.value = "";
+    const url = `http://openlibrary.org/search.json?q=${search}`;
 
-  fetch(url)
-    .then(res => res.json())
-    .then((data) => displaySearch(data))
+    fetch(url)
+      .then(res => res.json())
+      .then((data) => displaySearch(data))
+  }
+
 
 }
 
@@ -27,21 +33,27 @@ function displaySearch(data) {
 
 
   const searchResult = document.getElementById('search-result');
+  searchResult.innerHTML = ``;
+
 
   data.docs.forEach(book => {
     console.log(book)
     const bookTitle = book.title;
     const bookAuthor = book.author_name;
+    const bookPublisher = book.publisher[0];
+    const bookFirstPublish = book.first_publish_year;
 
     const div = document.createElement('div');
     div.classList.add('col');
     div.innerHTML = `
-    <div class="card">
-          <img src="..." class="card-img-top" alt="...">
+    <div class="card container">
+          <img src="https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg" class="card-img-top img-fluid" alt="book-cover-page">
           <div class="card-body">
             <h3 class="card-title">${bookTitle}</h3>
-            <h6>${bookAuthor}</h6>
-            <p>${}</p>
+            <h6> Author:  ${bookAuthor}</h6>
+            <p>Publisher: ${bookPublisher}</p>
+            <p>First Published: ${bookFirstPublish}</p>
+            
 
             
           </div>
