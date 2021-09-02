@@ -27,6 +27,7 @@ function displaySearch(data) {
   console.log(data.numFound);
   const matched = data.numFound;
   const div = document.getElementById('number-div');
+  div.innerHTML = ``
   const p = document.createElement('p');
   p.innerText = `number of matched book: ${matched}`;
   div.appendChild(p);
