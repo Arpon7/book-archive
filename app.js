@@ -10,7 +10,7 @@ function captureInput() {
   }
   else {
     searchInput.value = "";
-    const url = `http://openlibrary.org/search.json?q=${search}`;
+    const url = `HTTPS://openlibrary.org/search.json?q=${search}`;
 
     fetch(url)
       .then(res => res.json())
